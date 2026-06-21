@@ -1,0 +1,1039 @@
+{
+  "AiAgentsDashboardParablelabs.jsx": {
+    "file": "AiAgentsDashboardParablelabs.jsx",
+    "h1s": [
+      "Agent Monitoring"
+    ],
+    "h2s": [
+      "Global System Load"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Admin"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [
+      "Trend Agent",
+      "Internship Agent",
+      "Recruitment Agent",
+      "Marketing Agent",
+      "Community Agent"
+    ],
+    "links": [
+      "View logs chevron_right",
+      "analytics Evaluate",
+      "smart_toy Agents",
+      "monitoring Stats",
+      "tune Settings",
+      "Systems analytics Evaluate",
+      "terminal CLI Tooling"
+    ]
+  },
+  "AiEvaluationResultsParablelabs.jsx": {
+    "file": "AiEvaluationResultsParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Neural Nexus"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [
+      "AI Evaluation",
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "AiEvaluations.jsx": {
+    "file": "AiEvaluations.jsx",
+    "h1s": [
+      "Skill Assessments"
+    ],
+    "h2s": [
+      "Core AI Development"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Home",
+      "Hackathons",
+      "AI-Evaluations",
+      "Talent Pool",
+      "emoji_events Hackathons",
+      "psychology AI-Evaluations",
+      "groups Talent Pool",
+      "school Mentors",
+      "home Home",
+      "terminal Hack",
+      "biotech AI",
+      "person_search Talent"
+    ]
+  },
+  "AnalyticsReportingParablelabs.jsx": {
+    "file": "AnalyticsReportingParablelabs.jsx",
+    "h1s": [
+      "ParableLabs Analytics"
+    ],
+    "h2s": [
+      "Partner Console",
+      "Performance Dashboard"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Student"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "Dashboard",
+      "Analytics",
+      "Reports",
+      "person_search Recruitment",
+      "terminal Hackathons",
+      "groups Talent Pool",
+      "settings Settings"
+    ]
+  },
+  "AnanyaRaoParablelabsProfile.jsx": {
+    "file": "AnanyaRaoParablelabsProfile.jsx",
+    "h1s": [
+      "Ananya Rao"
+    ],
+    "h2s": [
+      "Technical Proficiency",
+      "Badge Showcase"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "Dashboard",
+      "Events",
+      "Assessments",
+      "Talent"
+    ]
+  },
+  "AnanyaRaoRecruiterEvaluation.jsx": {
+    "file": "AnanyaRaoRecruiterEvaluation.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Ananya Rao"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Recruiter"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [
+      "AI Evaluation",
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "ApplicantPipelineParablelabs.jsx": {
+    "file": "ApplicantPipelineParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Candidate Pipeline"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Recruiter"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "Candidate"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "work Job Postings",
+      "settings Settings",
+      "home Home",
+      "group Candidates",
+      "business_center Jobs",
+      "chat Messages"
+    ]
+  },
+  "ApplicationTrackerParablelabs.jsx": {
+    "file": "ApplicationTrackerParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Application Tracker"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Internships",
+      "Talent",
+      "Tracker",
+      "work Internships",
+      "group Talent",
+      "view_kanban Tracker",
+      "account_circle Profile"
+    ]
+  },
+  "AuditLogPlatformAdmin.jsx": {
+    "file": "AuditLogPlatformAdmin.jsx",
+    "h1s": [
+      "ParableLabs Admin"
+    ],
+    "h2s": [
+      "SYSTEM OPS",
+      "Audit Logs"
+    ],
+    "labels": [
+      "Date Range",
+      "Action Type",
+      "Search Logs"
+    ],
+    "foundSrsRoles": [
+      "Student",
+      "Professional",
+      "Mentor"
+    ],
+    "nonSrsRolesFound": [
+      "Admin"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "admin_panel_settings RBAC",
+      "history_edu Audit Logs",
+      "settings System Settings"
+    ]
+  },
+  "BadgesProgressParablelabs.jsx": {
+    "file": "BadgesProgressParablelabs.jsx",
+    "h1s": [
+      "Level 12 → Level 13"
+    ],
+    "h2s": [
+      "Achievements"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Mentor"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Leaderboard",
+      "Showcase",
+      "Rewards",
+      "Settings",
+      "military_tech Showcase",
+      "emoji_events Rewards",
+      "settings Settings",
+      "emoji_events Rank",
+      "workspace_premium Badges",
+      "storefront Store",
+      "account_circle Profile"
+    ]
+  },
+  "BuildaiHackathon2026Detail.jsx": {
+    "file": "BuildaiHackathon2026Detail.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "BuildAI Hackathon 2026"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "explore Explore",
+      "emoji_events My Hacks",
+      "add_circle Submit",
+      "dashboard Organize"
+    ]
+  },
+  "CompanyDashboardParablelabs.jsx": {
+    "file": "CompanyDashboardParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Admin Command Center"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "Applicant",
+      "Admin"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "rocket_launch Hackathons",
+      "group Team Management",
+      "monitoring Analytics",
+      "settings Settings",
+      "View All"
+    ]
+  },
+  "CreateHackathonJudgingCriteria.jsx": {
+    "file": "CreateHackathonJudgingCriteria.jsx",
+    "h1s": [
+      "Judging Rubric"
+    ],
+    "h2s": [],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "CreateJobPostingParablelabs.jsx": {
+    "file": "CreateJobPostingParablelabs.jsx",
+    "h1s": [
+      "ParableLabs",
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Create New Opportunity"
+    ],
+    "labels": [
+      "Role Title",
+      "Type",
+      "Compensation Range",
+      "Duration / Start Date",
+      "Required Skills",
+      "Role Description"
+    ],
+    "foundSrsRoles": [
+      "Professional",
+      "Recruiter"
+    ],
+    "nonSrsRolesFound": [
+      "Candidate"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [
+      "Recruitment Agent"
+    ],
+    "links": [
+      "work Job Postings",
+      "settings Settings",
+      "home Home",
+      "group Candidates",
+      "business_center",
+      "chat Messages"
+    ]
+  },
+  "DailyChallengesFeedParablelabs.jsx": {
+    "file": "DailyChallengesFeedParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "23-day streak",
+      "Optimize this SQL query"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "FrontendInternReactTechnovaInc.jsx": {
+    "file": "FrontendInternReactTechnovaInc.jsx",
+    "h1s": [
+      "Frontend Intern — React"
+    ],
+    "h2s": [
+      "info About the Role",
+      "Your Match Score"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Internships",
+      "Talent",
+      "Tracker",
+      "group Talent",
+      "view_kanban Tracker",
+      "account_circle Profile"
+    ]
+  },
+  "GlobalLeaderboardParablelabs.jsx": {
+    "file": "GlobalLeaderboardParablelabs.jsx",
+    "h1s": [
+      "Arena Elite"
+    ],
+    "h2s": [],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "leaderboard Leaderboard",
+      "military_tech Showcase",
+      "shopping_cart Rewards",
+      "settings Settings",
+      "emoji_events Rank",
+      "workspace_premium Badges",
+      "storefront Store",
+      "account_circle Profile"
+    ]
+  },
+  "HackathonDiscoveryParablelabs.jsx": {
+    "file": "HackathonDiscoveryParablelabs.jsx",
+    "h1s": [
+      "Discover Hacks"
+    ],
+    "h2s": [],
+    "labels": [
+      "Min Prize Pool"
+    ],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "emoji_events My Hacks",
+      "add_circle Submit",
+      "dashboard Organize"
+    ]
+  },
+  "HackathonsExplorer.jsx": {
+    "file": "HackathonsExplorer.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Global Hackathons"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Home",
+      "Hackathons",
+      "AI-Evaluations",
+      "Talent Pool",
+      "emoji_events Hackathons",
+      "psychology AI-Evaluations",
+      "groups Talent Pool",
+      "school Mentors",
+      "home Home",
+      "terminal Hack",
+      "biotech AI",
+      "person_search Talent"
+    ]
+  },
+  "HackathonSponsorshipParablelabs.jsx": {
+    "file": "HackathonSponsorshipParablelabs.jsx",
+    "h1s": [
+      "ParableLabs",
+      "Choose Sponsorship Tier"
+    ],
+    "h2s": [
+      "Admin Command Center"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "Admin",
+      "Participant",
+      "Sponsor"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "dashboard Dashboard",
+      "group Team Management",
+      "monitoring Analytics",
+      "settings Settings"
+    ]
+  },
+  "InternshipMarketplaceParablelabs.jsx": {
+    "file": "InternshipMarketplaceParablelabs.jsx",
+    "h1s": [],
+    "h2s": [],
+    "labels": [
+      "Remote",
+      "Hybrid",
+      "Onsite"
+    ],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Internships",
+      "Talent",
+      "Tracker",
+      "group Talent",
+      "view_kanban Tracker",
+      "account_circle Profile"
+    ]
+  },
+  "LoginParablelabs.jsx": {
+    "file": "LoginParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Welcome back"
+    ],
+    "labels": [
+      "Email Address",
+      "Password",
+      "Stay logged in for 30 days"
+    ],
+    "foundSrsRoles": [],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Forgot password?",
+      "Sign Up",
+      "Privacy Policy",
+      "Terms of Service"
+    ]
+  },
+  "MfaVerificationParablelabs.jsx": {
+    "file": "MfaVerificationParablelabs.jsx",
+    "h1s": [
+      "Verify Identity"
+    ],
+    "h2s": [],
+    "labels": [],
+    "foundSrsRoles": [],
+    "nonSrsRolesFound": [],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Contact Support"
+    ]
+  },
+  "OnboardingAcademicParablelabs.jsx": {
+    "file": "OnboardingAcademicParablelabs.jsx",
+    "h1s": [
+      "Academic Profile"
+    ],
+    "h2s": [],
+    "labels": [
+      "College/University Name",
+      "Graduation Year",
+      "Resume (PDF)"
+    ],
+    "foundSrsRoles": [],
+    "nonSrsRolesFound": [],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "OnboardingInterestsParablelabs.jsx": {
+    "file": "OnboardingInterestsParablelabs.jsx",
+    "h1s": [
+      "Your Interests"
+    ],
+    "h2s": [],
+    "labels": [
+      "emoji_events check Hackathons Collaborate with elite devs to build MVP solutions in 48-hour high-intensity sprints.",
+      "terminal check Daily Challenges Sharpen your skills with bite-sized algorithmic and architectural puzzles every 24 hours.",
+      "school check Internships Connect with leading AI labs and tech giants for mentored professional experiences.",
+      "work check Freelance Projects Monetize your expertise by picking up verified bounty-based engineering tasks."
+    ],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [],
+    "foundSrsModules": [
+      "Daily Challenges"
+    ],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "OnboardingSkillsParablelabs.jsx": {
+    "file": "OnboardingSkillsParablelabs.jsx",
+    "h1s": [
+      "Select your stack"
+    ],
+    "h2s": [],
+    "labels": [],
+    "foundSrsRoles": [],
+    "nonSrsRolesFound": [],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "ParablelabsDashboard.jsx": {
+    "file": "ParablelabsDashboard.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Welcome back, Alex"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Mentor"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [
+      "AI Evaluation"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "Home",
+      "Hackathons",
+      "AI-Evaluations",
+      "home Home",
+      "emoji_events Hackathons",
+      "psychology AI-Evaluations",
+      "groups Talent Pool",
+      "school Mentors",
+      "View All chevron_right",
+      "terminal Hack",
+      "biotech AI",
+      "person_search Talent"
+    ]
+  },
+  "PlatformAdminDashboardParablelabs.jsx": {
+    "file": "PlatformAdminDashboardParablelabs.jsx",
+    "h1s": [
+      "ParableLabs Admin"
+    ],
+    "h2s": [
+      "SYSTEM OPS",
+      "Command Center"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Student",
+      "Recruiter"
+    ],
+    "nonSrsRolesFound": [
+      "User",
+      "Admin"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "admin_panel_settings RBAC",
+      "history_edu Audit Logs",
+      "settings System Settings"
+    ]
+  },
+  "ProjectDetailParablelabs.jsx": {
+    "file": "ProjectDetailParablelabs.jsx",
+    "h1s": [
+      "Parable Marketplace"
+    ],
+    "h2s": [
+      "Build a Chrome Extension for Price Tracking",
+      "Submit a Proposal"
+    ],
+    "labels": [
+      "Bid Amount (₹)",
+      "Estimated Delivery (Days)",
+      "Pitch Message"
+    ],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Browse Gigs",
+      "My Proposals",
+      "description My Proposals",
+      "terminal Active Projects",
+      "payments Payments",
+      "article Proposals",
+      "integration_instructions Gigs",
+      "account_balance_wallet Wallet"
+    ]
+  },
+  "ProjectMarketplaceParablelabs.jsx": {
+    "file": "ProjectMarketplaceParablelabs.jsx",
+    "h1s": [
+      "Project Marketplace"
+    ],
+    "h2s": [],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [
+      "Project Marketplace",
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "Browse Gigs",
+      "My Proposals",
+      "Active Projects",
+      "Payments",
+      "description My Proposals",
+      "terminal Active Projects",
+      "payments Payments",
+      "search Browse",
+      "article Proposals",
+      "integration_instructions Gigs",
+      "account_balance_wallet Wallet"
+    ]
+  },
+  "RecruiterDashboardParablelabs.jsx": {
+    "file": "RecruiterDashboardParablelabs.jsx",
+    "h1s": [
+      "ParableLabs",
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Recruiter Dashboard"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Recruiter"
+    ],
+    "nonSrsRolesFound": [
+      "Candidate"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "RewardsStoreParablelabs.jsx": {
+    "file": "RewardsStoreParablelabs.jsx",
+    "h1s": [
+      "Rewards Store"
+    ],
+    "h2s": [],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Mentor"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "military_tech Showcase",
+      "shopping_cart Rewards",
+      "settings Settings",
+      "emoji_events Rank",
+      "workspace_premium Badges",
+      "storefront Store",
+      "account_circle Profile"
+    ]
+  },
+  "SolveChallengeParablelabs.jsx": {
+    "file": "SolveChallengeParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Optimize this SQL query"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "SubmitProjectParablelabs.jsx": {
+    "file": "SubmitProjectParablelabs.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "Submit Your Project"
+    ],
+    "labels": [
+      "Project Title",
+      "Tagline",
+      "link GitHub Repo URL",
+      "rocket_launch Live Demo URL",
+      "Demo Video",
+      "Tech Stack",
+      "Project Description"
+    ],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": []
+  },
+  "TalentEcosystem.jsx": {
+    "file": "TalentEcosystem.jsx",
+    "h1s": [
+      "Welcome back, Alex"
+    ],
+    "h2s": [
+      "Recommended for you"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "Home",
+      "Hackathons",
+      "AI-Evaluations",
+      "Talent Pool",
+      "Mentors",
+      "emoji_events Hackathons",
+      "psychology AI-Evaluations",
+      "groups Talent Pool",
+      "school Mentors"
+    ]
+  },
+  "TalentSearchRecruiterView.jsx": {
+    "file": "TalentSearchRecruiterView.jsx",
+    "h1s": [
+      "Discovery"
+    ],
+    "h2s": [],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Recruiter"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "Candidate",
+      "User"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "star Shortlisted",
+      "chat Communications",
+      "settings Settings",
+      "search Discover",
+      "star Shortlist",
+      "chat Chat"
+    ]
+  },
+  "TeamManagementParablelabs.jsx": {
+    "file": "TeamManagementParablelabs.jsx",
+    "h1s": [
+      "Parable."
+    ],
+    "h2s": [
+      "Admin Command Center"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional",
+      "Recruiter"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "Admin"
+    ],
+    "foundSrsModules": [
+      "Analytics"
+    ],
+    "foundSrsAgents": [],
+    "links": [
+      "rocket_launch Hackathons",
+      "group Team Management",
+      "monitoring Analytics",
+      "settings Settings"
+    ]
+  },
+  "TechnovaIncCompanyProfile.jsx": {
+    "file": "TechnovaIncCompanyProfile.jsx",
+    "h1s": [
+      "ParableLabs"
+    ],
+    "h2s": [
+      "TechNova Inc."
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Professional"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "Admin",
+      "Participant"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "event Events",
+      "code Assessments",
+      "groups Talent",
+      "settings Settings"
+    ]
+  },
+  "UserRoleManagementRbac.jsx": {
+    "file": "UserRoleManagementRbac.jsx",
+    "h1s": [
+      "ParableLabs Admin"
+    ],
+    "h2s": [
+      "SYSTEM OPS",
+      "User &amp; Role Management"
+    ],
+    "labels": [],
+    "foundSrsRoles": [
+      "Student",
+      "Professional",
+      "Mentor",
+      "Recruiter",
+      "Company Admin",
+      "Platform Admin"
+    ],
+    "nonSrsRolesFound": [
+      "Developer",
+      "User",
+      "Admin"
+    ],
+    "foundSrsModules": [],
+    "foundSrsAgents": [],
+    "links": [
+      "admin_panel_settings RBAC",
+      "history_edu Audit Logs",
+      "settings System Settings"
+    ]
+  }
+}

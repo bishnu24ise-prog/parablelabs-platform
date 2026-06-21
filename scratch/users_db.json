@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@parablelabs.io",
+    "password": "$2b$10$7CJCdvEA0Vc6Lm9.HLwu..NEXar8iiBL25P8zF3pG1J3vN5Y67weG",
+    "role": "Student",
+    "onboarded": false,
+    "profile_data": null,
+    "created_at": "2026-06-21T09:11:00.083Z"
+  },
+  {
+    "id": 2,
+    "name": "Bishnu kumar Sardar",
+    "email": "bishnusardar111@gmail.com",
+    "password": "$2b$10$zOtd1b6R46QX5tOaye2FD.dqAukkBGiu9LLJsfsQJHmvo47Q3sE4y",
+    "role": "Student",
+    "onboarded": true,
+    "profile_data": "{\"skipped\":true}",
+    "created_at": "2026-06-21T09:24:34.482Z"
+  }
+]
