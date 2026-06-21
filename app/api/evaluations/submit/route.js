@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, nextId, awardXP, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery, awardXP, logAuditEvent } from '@/lib/db';
 
 // ⚠️ MOCK AI — Rule-based scoring. NOT using real AI/LLM.
 // Scoring criteria: code length, keyword presence, structure quality
@@ -98,19 +98,12 @@ export async function POST(request) {
     // ⚠️ MOCK AI SCORING — rule-based, not real AI
     const result = mockScore(code, language || 'javascript', taskType || 'general');
 
-    const evaluations = readTable('ai_evaluations');
-    const newEval = {
-      id: nextId(evaluations),
-      userId: decoded.userId, userName: decoded.name,
-      taskTitle: taskTitle || 'Code Evaluation',
-      language: language || 'javascript',
-      code, score: result.score,
-      breakdown: result.breakdown, feedback: result.feedback,
-      isMockAI: true, // Clearly flagged
-      submittedAt: new Date().toISOString()
-    };
-    evaluations.push(newEval);
-    writeTable('ai_evaluations', evaluations);
+    const insertRes = await dbQuery(
+      `INSERT INTO ai_evaluations ("userId", "userName", "taskTitle", language, code, score, breakdown, feedback, "isMockAI") 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+      [decoded.userId, decoded.name, taskTitle || 'Code Evaluation', language || 'javascript', code, result.score, JSON.stringify(result.breakdown), JSON.stringify(result.feedback), true]
+    );
+    const newEval = insertRes.rows[0];
 
     // Award XP based on score
     const xpAwarded = Math.round(result.score * 20); // 0-200 XP based on score

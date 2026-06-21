@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery, logAuditEvent } from '@/lib/db';
 
 const VALID_STATUSES = ['Applied', 'Reviewed', 'Interview', 'Rejected', 'Hired'];
 
@@ -24,21 +24,23 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: `Invalid status. Must be one of: ${VALID_STATUSES.join(', ')}` }, { status: 400 });
     }
 
-    const applications = readTable('applications');
-    const index = applications.findIndex(a => a.id === appId);
-    if (index === -1) return NextResponse.json({ error: 'Application not found' }, { status: 404 });
+    const appRes = await dbQuery('SELECT status, "userName" FROM applications WHERE id = $1', [appId]);
+    if (appRes.rows.length === 0) return NextResponse.json({ error: 'Application not found' }, { status: 404 });
 
-    const oldStatus = applications[index].status;
-    applications[index].status = status;
-    applications[index].updatedAt = new Date().toISOString();
-    applications[index].updatedBy = decoded.userId;
-    writeTable('applications', applications);
+    const oldStatus = appRes.rows[0].status;
+    const userName = appRes.rows[0].userName;
+
+    const updateRes = await dbQuery(
+      'UPDATE applications SET status = $1, "updatedAt" = NOW(), "updatedBy" = $2 WHERE id = $3 RETURNING *',
+      [status, decoded.userId, appId]
+    );
+    const updatedApplication = updateRes.rows[0];
 
     logAuditEvent({ actorId: decoded.userId, actorName: decoded.name, actorRole: decoded.role,
       action: 'UPDATE_APPLICATION_STATUS', targetType: 'application', targetId: appId,
-      details: `Status changed from ${oldStatus} to ${status} for ${applications[index].userName}` });
+      details: `Status changed from ${oldStatus} to ${status} for ${userName}` });
 
-    return NextResponse.json({ success: true, application: applications[index] });
+    return NextResponse.json({ success: true, application: updatedApplication });
   } catch (err) {
     console.error('/api/recruiter/applications/[id]/status error:', err);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { dbQuery, initDb } from '@/lib/db';
+import { dbQuery } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-change-me-in-prod
 
 export async function POST(request) {
   try {
-    await initDb();
+
 
     const { email, password } = await request.json();
 

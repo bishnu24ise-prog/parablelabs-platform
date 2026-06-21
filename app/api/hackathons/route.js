@@ -1,52 +1,8 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, nextId, awardXP, awardBadge, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery, logAuditEvent } from '@/lib/db';
 
-function seedHackathons() {
-  const existing = readTable('hackathons');
-  if (existing.length > 0) return existing;
-
-  const seeds = [
-    {
-      id: 1, title: 'BuildAI Hackathon 2026', organizer: 'ParableLabs',
-      description: 'Build the next generation of AI-powered tools. Open to all skill levels. Teams of 1–4.',
-      tags: ['AI', 'ML', 'Python', 'APIs'], status: 'open', prize: '₹2,00,000',
-      deadline: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString(),
-      startDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
-      endDate: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString(),
-      maxTeamSize: 4, createdBy: null, createdAt: new Date().toISOString()
-    },
-    {
-      id: 2, title: 'Web3 DeFi Challenge', organizer: 'TechNova Inc',
-      description: 'Design decentralized finance applications. Blockchain, smart contracts, and Web3 stack.',
-      tags: ['Web3', 'Blockchain', 'Solidity'], status: 'open', prize: '₹1,50,000',
-      deadline: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(),
-      startDate: new Date().toISOString(),
-      endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
-      maxTeamSize: 3, createdBy: null, createdAt: new Date().toISOString()
-    },
-    {
-      id: 3, title: 'SustainTech Hack', organizer: 'GreenLabs',
-      description: 'Solutions for climate, renewable energy, and sustainable supply chains.',
-      tags: ['IoT', 'Data', 'Sustainability'], status: 'upcoming', prize: '₹1,00,000',
-      deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      startDate: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString(),
-      endDate: new Date(Date.now() + 37 * 24 * 60 * 60 * 1000).toISOString(),
-      maxTeamSize: 5, createdBy: null, createdAt: new Date().toISOString()
-    },
-    {
-      id: 4, title: 'HealthAI Sprint', organizer: 'MedTech Partners',
-      description: 'AI for healthcare diagnostics, patient monitoring, and telemedicine.',
-      tags: ['Healthcare', 'AI', 'Python'], status: 'completed', prize: '₹75,000',
-      deadline: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-      startDate: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
-      endDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-      maxTeamSize: 4, createdBy: null, createdAt: new Date().toISOString()
-    },
-  ];
-  writeTable('hackathons', seeds);
-  return seeds;
-}
+// Seeding handled by migration script
 
 // GET /api/hackathons — list all hackathons
 export async function GET(request) {
@@ -55,8 +11,15 @@ export async function GET(request) {
     const session = cookieStore.get('session');
     const decoded = verifySession(session?.value);
 
-    const hackathons = seedHackathons();
-    const registrations = readTable('hackathon_registrations');
+    const hackathonsRes = await dbQuery('SELECT * FROM hackathons');
+    const registrationsRes = await dbQuery('SELECT "hackathonId", "userId" FROM hackathon_registrations');
+    const registrations = registrationsRes.rows;
+    const hackathons = hackathonsRes.rows.map(h => {
+       if (typeof h.tags === 'string') {
+         try { h.tags = JSON.parse(h.tags); } catch { h.tags = []; }
+       }
+       return h;
+    });
 
     // Enrich with registration status for logged-in user
     const enriched = hackathons.map(h => ({
@@ -102,15 +65,16 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Title and description are required.' }, { status: 400 });
     }
 
-    const hackathons = seedHackathons();
-    const newHackathon = {
-      id: nextId(hackathons), title, organizer: decoded.name, description,
-      tags: tags || [], prize: prize || 'TBD', status: 'upcoming',
-      deadline, startDate, endDate, maxTeamSize: maxTeamSize || 4,
-      createdBy: decoded.userId, createdAt: new Date().toISOString()
-    };
-    hackathons.push(newHackathon);
-    writeTable('hackathons', hackathons);
+    const tagsJson = JSON.stringify(tags || []);
+    const insertRes = await dbQuery(
+      `INSERT INTO hackathons (title, organizer, description, tags, prize, status, deadline, "startDate", "endDate", "maxTeamSize", "createdBy") 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
+      [title, decoded.name, description, tagsJson, prize || 'TBD', 'upcoming', deadline, startDate, endDate, maxTeamSize || 4, decoded.userId]
+    );
+    const newHackathon = insertRes.rows[0];
+    if (typeof newHackathon.tags === 'string') {
+       try { newHackathon.tags = JSON.parse(newHackathon.tags); } catch { newHackathon.tags = []; }
+    }
 
     logAuditEvent({ actorId: decoded.userId, actorName: decoded.name, actorRole: decoded.role,
       action: 'CREATE_HACKATHON', targetType: 'hackathon', targetId: newHackathon.id,

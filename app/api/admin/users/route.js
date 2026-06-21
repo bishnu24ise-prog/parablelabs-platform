@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, dbQuery } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/admin/users — all users (Platform Admin only)
 export async function GET() {
@@ -14,11 +14,14 @@ export async function GET() {
     }
 
     const res = await dbQuery('SELECT id, name, email, role, xp, onboarded, created_at FROM users', []);
+    const badgesRes = await dbQuery('SELECT "userId" FROM user_badges');
+    const badges = badgesRes.rows;
+
     const users = res.rows.map(u => ({
       ...u,
       xp: u.xp || 0,
       level: Math.floor((u.xp || 0) / 500) + 1,
-      badgeCount: readTable('user_badges').filter(b => b.userId === u.id).length,
+      badgeCount: badges.filter(b => b.userId === u.id).length,
     }));
 
     const stats = {

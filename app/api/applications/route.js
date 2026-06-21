@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/applications — current user's applications
 export async function GET() {
@@ -10,8 +10,8 @@ export async function GET() {
     const decoded = verifySession(session?.value);
     if (!decoded) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const applications = readTable('applications').filter(a => a.userId === decoded.userId);
-    applications.sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt));
+    const appRes = await dbQuery('SELECT * FROM applications WHERE "userId" = $1 ORDER BY "appliedAt" DESC', [decoded.userId]);
+    const applications = appRes.rows;
 
     return NextResponse.json({ applications });
   } catch (err) {

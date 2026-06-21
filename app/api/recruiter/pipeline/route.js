@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, dbQuery } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/recruiter/pipeline — all applications to this recruiter's listings
 export async function GET() {
@@ -13,11 +13,20 @@ export async function GET() {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 });
     }
 
-    const listings = readTable('internship_listings').filter(l =>
-      l.postedBy === decoded.userId || decoded.role === 'Platform Admin'
-    );
+    let listingsRes;
+    if (decoded.role === 'Platform Admin') {
+      listingsRes = await dbQuery('SELECT * FROM internship_listings');
+    } else {
+      listingsRes = await dbQuery('SELECT * FROM internship_listings WHERE "postedBy" = $1', [decoded.userId]);
+    }
+    const listings = listingsRes.rows;
     const listingIds = listings.map(l => l.id);
-    const allApplications = readTable('applications').filter(a => listingIds.includes(a.listingId));
+
+    let allApplications = [];
+    if (listingIds.length > 0) {
+      const allAppRes = await dbQuery(`SELECT * FROM applications WHERE "listingId" = ANY($1)`, [listingIds]);
+      allApplications = allAppRes.rows;
+    }
 
     // Group by status
     const pipeline = {

@@ -1,20 +1,24 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, nextId, awardXP, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/projects/[id]
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
-    const projects = readTable('projects');
-    const project = projects.find(p => p.id === parseInt(id));
-    if (!project) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+    const projectsRes = await dbQuery('SELECT * FROM projects WHERE id = $1', [parseInt(id)]);
+    if (projectsRes.rows.length === 0) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+    const project = projectsRes.rows[0];
+    if (typeof project.tags === 'string') {
+      try { project.tags = JSON.parse(project.tags); } catch { project.tags = []; }
+    }
 
     const cookieStore = await cookies();
     const session = cookieStore.get('session');
     const decoded = verifySession(session?.value);
 
-    const bids = readTable('project_bids').filter(b => b.projectId === project.id);
+    const bidsRes = await dbQuery('SELECT * FROM project_bids WHERE "projectId" = $1', [project.id]);
+    const bids = bidsRes.rows;
 
     return NextResponse.json({
       ...project,

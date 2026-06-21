@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, nextId, awardXP, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery, awardXP, logAuditEvent } from '@/lib/db';
 
 // POST /api/projects/[id]/bid
 export async function POST(request, { params }) {
@@ -13,27 +13,24 @@ export async function POST(request, { params }) {
     const decoded = verifySession(session?.value);
     if (!decoded) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const projects = readTable('projects');
-    const project = projects.find(p => p.id === projectId);
-    if (!project) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+    const projectsRes = await dbQuery('SELECT title, status FROM projects WHERE id = $1', [projectId]);
+    if (projectsRes.rows.length === 0) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+    const project = projectsRes.rows[0];
     if (project.status !== 'open') return NextResponse.json({ error: 'This project is no longer accepting bids.' }, { status: 400 });
 
-    const bids = readTable('project_bids');
-    const alreadyBid = bids.some(b => b.projectId === projectId && b.userId === decoded.userId);
-    if (alreadyBid) return NextResponse.json({ error: 'You have already submitted a bid for this project.' }, { status: 400 });
+    const bidsRes = await dbQuery('SELECT id FROM project_bids WHERE "projectId" = $1 AND "userId" = $2', [projectId, decoded.userId]);
+    if (bidsRes.rows.length > 0) return NextResponse.json({ error: 'You have already submitted a bid for this project.' }, { status: 400 });
 
     const body = await request.json();
     const { bidAmount, proposal, deliveryDays } = body;
     if (!proposal) return NextResponse.json({ error: 'Proposal is required.' }, { status: 400 });
 
-    const newBid = {
-      id: nextId(bids), projectId, projectTitle: project.title,
-      userId: decoded.userId, userName: decoded.name, userEmail: decoded.email,
-      bidAmount: bidAmount || 'Negotiable', proposal, deliveryDays: deliveryDays || 'TBD',
-      status: 'pending', submittedAt: new Date().toISOString()
-    };
-    bids.push(newBid);
-    writeTable('project_bids', bids);
+    const insertRes = await dbQuery(
+      `INSERT INTO project_bids ("projectId", "projectTitle", "userId", "userName", "userEmail", "bidAmount", proposal, "deliveryDays", status) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+      [projectId, project.title, decoded.userId, decoded.name, decoded.email, bidAmount || 'Negotiable', proposal, deliveryDays || 'TBD', 'pending']
+    );
+    const newBid = insertRes.rows[0];
 
     await awardXP(decoded.userId, 50, `Submitted bid for project: ${project.title}`);
 

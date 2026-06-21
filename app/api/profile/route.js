@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, dbQuery } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/profile — returns current user's full profile
 export async function GET() {
@@ -21,11 +21,11 @@ export async function GET() {
     const level = Math.floor(xp / 500) + 1;
 
     // Count hackathons joined
-    const registrations = readTable('hackathon_registrations').filter(r => r.userId === user.id);
-    const submissions = readTable('hackathon_submissions').filter(s => s.userId === user.id);
-    const applications = readTable('applications').filter(a => a.userId === user.id);
-    const challengeSubs = readTable('challenge_submissions').filter(c => c.userId === user.id);
-    const streakData = computeStreak(user.id);
+    const registrationsRes = await dbQuery('SELECT id FROM hackathon_registrations WHERE "userId" = $1', [user.id]);
+    const submissionsRes = await dbQuery('SELECT id FROM hackathon_submissions WHERE "userId" = $1', [user.id]);
+    const applicationsRes = await dbQuery('SELECT id FROM applications WHERE "userId" = $1', [user.id]);
+    const challengeSubsRes = await dbQuery('SELECT id, correct FROM challenge_submissions WHERE "userId" = $1', [user.id]);
+    const streakData = await computeStreak(user.id);
 
     return NextResponse.json({
       id: user.id,
@@ -45,10 +45,10 @@ export async function GET() {
       gradYear: profile.gradYear || '',
       experience: profile.experience || '',
       stats: {
-        hackathonsJoined: registrations.length,
-        projectsSubmitted: submissions.length,
-        applicationsSubmitted: applications.length,
-        challengesSolved: challengeSubs.filter(c => c.correct).length,
+        hackathonsJoined: registrationsRes.rows.length,
+        projectsSubmitted: submissionsRes.rows.length,
+        applicationsSubmitted: applicationsRes.rows.length,
+        challengesSolved: challengeSubsRes.rows.filter(c => c.correct).length,
         currentStreak: streakData.streak,
       }
     });
@@ -81,10 +81,9 @@ export async function PUT(request) {
   }
 }
 
-function computeStreak(userId) {
-  const subs = readTable('challenge_submissions')
-    .filter(s => s.userId === userId && s.correct)
-    .map(s => new Date(s.submittedAt).toDateString());
+async function computeStreak(userId) {
+  const subsRes = await dbQuery('SELECT "submittedAt" FROM challenge_submissions WHERE "userId" = $1 AND correct = true', [userId]);
+  const subs = subsRes.rows.map(s => new Date(s.submittedAt).toDateString());
   const uniqueDays = [...new Set(subs)].sort();
 
   let streak = 0;

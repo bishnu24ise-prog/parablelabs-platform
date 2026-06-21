@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, nextId, awardXP, awardBadge, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery, awardXP, awardBadge, logAuditEvent } from '@/lib/db';
 
 // POST /api/challenges/[id]/submit
 export async function POST(request, { params }) {
@@ -13,13 +13,15 @@ export async function POST(request, { params }) {
     const decoded = verifySession(session?.value);
     if (!decoded) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const challenges = readTable('challenges');
-    const challenge = challenges.find(c => c.id === challengeId);
-    if (!challenge) return NextResponse.json({ error: 'Challenge not found' }, { status: 404 });
+    const challengeRes = await dbQuery('SELECT title, "expectedKeywords", "xpReward" FROM challenges WHERE id = $1', [challengeId]);
+    if (challengeRes.rows.length === 0) return NextResponse.json({ error: 'Challenge not found' }, { status: 404 });
+    const challenge = challengeRes.rows[0];
+    if (typeof challenge.expectedKeywords === 'string') {
+      try { challenge.expectedKeywords = JSON.parse(challenge.expectedKeywords); } catch { challenge.expectedKeywords = []; }
+    }
 
-    const submissions = readTable('challenge_submissions');
-    const alreadySubmitted = submissions.some(s => s.challengeId === challengeId && s.userId === decoded.userId);
-    if (alreadySubmitted) {
+    const subRes = await dbQuery('SELECT id FROM challenge_submissions WHERE "challengeId" = $1 AND "userId" = $2', [challengeId, decoded.userId]);
+    if (subRes.rows.length > 0) {
       return NextResponse.json({ error: 'You have already submitted this challenge.' }, { status: 400 });
     }
 
@@ -36,26 +38,25 @@ export async function POST(request, { params }) {
     );
     const correct = keywordsFound.length >= Math.ceil((challenge.expectedKeywords || []).length / 2);
 
-    const newSub = {
-      id: nextId(submissions),
-      challengeId, challengeTitle: challenge.title,
-      userId: decoded.userId, userName: decoded.name,
-      code, correct, keywordsFound,
-      xpAwarded: correct ? challenge.xpReward : Math.floor(challenge.xpReward * 0.2),
-      submittedAt: new Date().toISOString()
-    };
-    submissions.push(newSub);
-    writeTable('challenge_submissions', submissions);
+    const xpAwarded = correct ? challenge.xpReward : Math.floor(challenge.xpReward * 0.2);
+
+    const insertRes = await dbQuery(
+      `INSERT INTO challenge_submissions 
+       ("challengeId", "challengeTitle", "userId", "userName", code, correct, "keywordsFound", "xpAwarded") 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      [challengeId, challenge.title, decoded.userId, decoded.name, code, correct, JSON.stringify(keywordsFound), xpAwarded]
+    );
+    const newSub = insertRes.rows[0];
 
     // Award XP
     await awardXP(decoded.userId, newSub.xpAwarded, `Challenge: ${challenge.title} (${correct ? 'correct' : 'partial'})`);
 
     // Award badges
-    const userSubs = submissions.filter(s => s.userId === decoded.userId);
-    if (userSubs.length === 1) await awardBadge(decoded.userId, 'first_challenge');
+    const userSubsRes = await dbQuery('SELECT id FROM challenge_submissions WHERE "userId" = $1', [decoded.userId]);
+    if (userSubsRes.rows.length === 1) await awardBadge(decoded.userId, 'first_challenge');
 
     // Check streak for badge
-    const streakDays = computeStreak(decoded.userId, submissions);
+    const streakDays = await computeStreak(decoded.userId);
     if (streakDays >= 7) await awardBadge(decoded.userId, 'streak_7');
     if (streakDays >= 30) await awardBadge(decoded.userId, 'streak_30');
 
@@ -74,10 +75,9 @@ export async function POST(request, { params }) {
   }
 }
 
-function computeStreak(userId, submissions) {
-  const subs = submissions
-    .filter(s => s.userId === userId)
-    .map(s => new Date(s.submittedAt).toDateString());
+async function computeStreak(userId) {
+  const subsRes = await dbQuery('SELECT "submittedAt" FROM challenge_submissions WHERE "userId" = $1', [userId]);
+  const subs = subsRes.rows.map(s => new Date(s.submittedAt).toDateString());
   const uniqueDays = [...new Set(subs)].sort().reverse();
 
   let streak = 0;

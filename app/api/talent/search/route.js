@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, dbQuery } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/talent/search — search users for recruiter talent view
 export async function GET(request) {
@@ -20,6 +20,12 @@ export async function GET(request) {
 
     const res = await dbQuery('SELECT id, name, email, role, xp, profile_data FROM users', []);
     let users = res.rows.filter(u => !['Recruiter', 'Company Admin', 'Platform Admin'].includes(u.role));
+
+    const hacksRes = await dbQuery('SELECT "userId" FROM hackathon_registrations');
+    const hacks = hacksRes.rows;
+
+    const challRes = await dbQuery('SELECT "userId" FROM challenge_submissions WHERE correct = true');
+    const chall = challRes.rows;
 
     if (role) users = users.filter(u => u.role === role);
     if (q) {
@@ -43,8 +49,8 @@ export async function GET(request) {
         university: pd.university || '',
         company: pd.company || '',
         bio: pd.bio || '',
-        hackathonsJoined: readTable('hackathon_registrations').filter(r => r.userId === u.id).length,
-        challengesSolved: readTable('challenge_submissions').filter(s => s.userId === u.id && s.correct).length,
+        hackathonsJoined: hacks.filter(r => r.userId === u.id).length,
+        challengesSolved: chall.filter(s => s.userId === u.id).length,
       };
     });
 

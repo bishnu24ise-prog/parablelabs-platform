@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, nextId, awardXP, awardBadge, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery, awardXP, awardBadge, logAuditEvent } from '@/lib/db';
 
 // POST /api/hackathons/[id]/register
 export async function POST(request, { params }) {
@@ -13,26 +13,23 @@ export async function POST(request, { params }) {
     const decoded = verifySession(session?.value);
     if (!decoded) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const hackathons = readTable('hackathons');
-    const hackathon = hackathons.find(h => h.id === hackathonId);
-    if (!hackathon) return NextResponse.json({ error: 'Hackathon not found' }, { status: 404 });
+    const hackRes = await dbQuery('SELECT * FROM hackathons WHERE id = $1', [hackathonId]);
+    if (hackRes.rows.length === 0) return NextResponse.json({ error: 'Hackathon not found' }, { status: 404 });
+    const hackathon = hackRes.rows[0];
     if (hackathon.status === 'completed') {
       return NextResponse.json({ error: 'This hackathon has already ended.' }, { status: 400 });
     }
 
-    const registrations = readTable('hackathon_registrations');
-    const alreadyRegistered = registrations.some(r => r.hackathonId === hackathonId && r.userId === decoded.userId);
-    if (alreadyRegistered) {
+    const regRes = await dbQuery('SELECT id FROM hackathon_registrations WHERE "hackathonId" = $1 AND "userId" = $2', [hackathonId, decoded.userId]);
+    if (regRes.rows.length > 0) {
       return NextResponse.json({ error: 'You are already registered for this hackathon.' }, { status: 400 });
     }
 
-    const newReg = {
-      id: nextId(registrations),
-      hackathonId, userId: decoded.userId, userName: decoded.name,
-      registeredAt: new Date().toISOString()
-    };
-    registrations.push(newReg);
-    writeTable('hackathon_registrations', registrations);
+    const insertRes = await dbQuery(
+      'INSERT INTO hackathon_registrations ("hackathonId", "userId") VALUES ($1, $2) RETURNING *',
+      [hackathonId, decoded.userId]
+    );
+    const newReg = insertRes.rows[0];
 
     // Award XP + badge
     await awardXP(decoded.userId, 100, `Registered for hackathon: ${hackathon.title}`);

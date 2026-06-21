@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, dbQuery, getBadgeDefinitions } from '@/lib/db';
+import { verifySession, dbQuery, getBadgeDefinitions } from '@/lib/db';
 
 // GET /api/gamification/badges — current user's earned badges + all badge progress
 export async function GET() {
@@ -15,12 +15,21 @@ export async function GET() {
     const user = res.rows[0];
 
     const allBadges = getBadgeDefinitions();
-    const userBadges = readTable('user_badges').filter(b => b.userId === decoded.userId);
+    const userBadgesRes = await dbQuery('SELECT "badgeId", "earnedAt" FROM user_badges WHERE "userId" = $1', [decoded.userId]);
+    const userBadges = userBadgesRes.rows;
     const earnedIds = userBadges.map(b => b.badgeId);
 
     const xp = user.xp || 0;
-    const challengeSubs = readTable('challenge_submissions').filter(s => s.userId === decoded.userId);
-    const hackRegistrations = readTable('hackathon_registrations').filter(r => r.userId === decoded.userId);
+    const challengeSubsRes = await dbQuery('SELECT id FROM challenge_submissions WHERE "userId" = $1', [decoded.userId]);
+    const hackRegistrationsRes = await dbQuery('SELECT id FROM hackathon_registrations WHERE "userId" = $1', [decoded.userId]);
+    const challengeSubsCount = challengeSubsRes.rows.length;
+    const hackRegistrationsCount = hackRegistrationsRes.rows.length;
+
+    const projectSubsRes = await dbQuery('SELECT id FROM hackathon_submissions WHERE "userId" = $1', [decoded.userId]);
+    const applicationsRes = await dbQuery('SELECT id FROM applications WHERE "userId" = $1', [decoded.userId]);
+    const projectSubsCount = projectSubsRes.rows.length;
+    const applicationsCount = applicationsRes.rows.length;
+    const streak = await computeStreak(decoded.userId);
 
     // Build progress for each badge
     const badgeProgress = allBadges.map(badge => {
@@ -36,37 +45,33 @@ export async function GET() {
         progressMax = badge.xpRequired;
         progressLabel = `${xp} / ${badge.xpRequired} XP`;
       } else if (badge.id === 'first_challenge') {
-        progress = Math.min(challengeSubs.length, 1);
+        progress = Math.min(challengeSubsCount, 1);
         progressMax = 1;
-        progressLabel = `${challengeSubs.length} / 1 challenge`;
+        progressLabel = `${challengeSubsCount} / 1 challenge`;
       } else if (badge.id === 'streak_7') {
-        const streak = computeStreak(decoded.userId);
         progress = Math.min(streak, 7);
         progressMax = 7;
         progressLabel = `${streak} / 7 days`;
       } else if (badge.id === 'streak_30') {
-        const streak = computeStreak(decoded.userId);
         progress = Math.min(streak, 30);
         progressMax = 30;
         progressLabel = `${streak} / 30 days`;
       } else if (badge.id === 'hackathon_join') {
-        progress = Math.min(hackRegistrations.length, 1);
+        progress = Math.min(hackRegistrationsCount, 1);
         progressMax = 1;
-        progressLabel = `${hackRegistrations.length} / 1 hackathon`;
+        progressLabel = `${hackRegistrationsCount} / 1 hackathon`;
       } else if (badge.id === 'first_login') {
         progress = 1;
         progressMax = 1;
         progressLabel = 'Completed';
       } else if (badge.id === 'project_submit') {
-        const projectSubs = readTable('hackathon_submissions').filter(s => s.userId === decoded.userId);
-        progress = Math.min(projectSubs.length, 1);
+        progress = Math.min(projectSubsCount, 1);
         progressMax = 1;
-        progressLabel = `${projectSubs.length} / 1 project`;
+        progressLabel = `${projectSubsCount} / 1 project`;
       } else if (badge.id === 'first_apply') {
-        const applications = readTable('applications').filter(a => a.userId === decoded.userId);
-        progress = Math.min(applications.length, 1);
+        progress = Math.min(applicationsCount, 1);
         progressMax = 1;
-        progressLabel = `${applications.length} / 1 application`;
+        progressLabel = `${applicationsCount} / 1 application`;
       }
 
       return {
@@ -93,10 +98,9 @@ export async function GET() {
   }
 }
 
-function computeStreak(userId) {
-  const subs = readTable('challenge_submissions')
-    .filter(s => s.userId === userId)
-    .map(s => new Date(s.submittedAt).toDateString());
+async function computeStreak(userId) {
+  const subsRes = await dbQuery('SELECT "submittedAt" FROM challenge_submissions WHERE "userId" = $1', [userId]);
+  const subs = subsRes.rows.map(s => new Date(s.submittedAt).toDateString());
   const uniqueDays = [...new Set(subs)].sort().reverse();
 
   let streak = 0;

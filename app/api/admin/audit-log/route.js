@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/admin/audit-log
 export async function GET() {
@@ -13,8 +13,8 @@ export async function GET() {
       return NextResponse.json({ error: 'Platform Admin access required' }, { status: 403 });
     }
 
-    const log = readTable('audit_log');
-    log.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const logRes = await dbQuery('SELECT * FROM audit_log ORDER BY timestamp DESC');
+    const log = logRes.rows;
 
     return NextResponse.json({ log, total: log.length });
   } catch (err) {

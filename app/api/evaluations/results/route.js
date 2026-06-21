@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable } from '@/lib/db';
+import { verifySession, dbQuery } from '@/lib/db';
 
 // GET /api/evaluations/results — current user's evaluation history
 export async function GET() {
@@ -10,9 +10,8 @@ export async function GET() {
     const decoded = verifySession(session?.value);
     if (!decoded) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const evaluations = readTable('ai_evaluations')
-      .filter(e => e.userId === decoded.userId)
-      .sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
+    const res = await dbQuery('SELECT * FROM ai_evaluations WHERE "userId" = $1 ORDER BY "submittedAt" DESC', [decoded.userId]);
+    const evaluations = res.rows;
 
     const avgScore = evaluations.length > 0
       ? (evaluations.reduce((sum, e) => sum + e.score, 0) / evaluations.length).toFixed(1)

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession, readTable, writeTable, nextId, awardXP, awardBadge, logAuditEvent } from '@/lib/db';
+import { verifySession, dbQuery, awardXP, awardBadge, logAuditEvent } from '@/lib/db';
 
 // POST /api/internships/[id]/apply
 export async function POST(request, { params }) {
@@ -13,31 +13,25 @@ export async function POST(request, { params }) {
     const decoded = verifySession(session?.value);
     if (!decoded) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const listings = readTable('internship_listings');
-    const listing = listings.find(l => l.id === listingId);
-    if (!listing) return NextResponse.json({ error: 'Listing not found' }, { status: 404 });
+    const listingsRes = await dbQuery('SELECT title, company, status FROM internship_listings WHERE id = $1', [listingId]);
+    if (listingsRes.rows.length === 0) return NextResponse.json({ error: 'Listing not found' }, { status: 404 });
+    const listing = listingsRes.rows[0];
     if (listing.status !== 'open') return NextResponse.json({ error: 'This listing is no longer accepting applications.' }, { status: 400 });
 
-    const applications = readTable('applications');
-    const alreadyApplied = applications.some(a => a.listingId === listingId && a.userId === decoded.userId);
-    if (alreadyApplied) {
+    const appRes = await dbQuery('SELECT id FROM applications WHERE "listingId" = $1 AND "userId" = $2', [listingId, decoded.userId]);
+    if (appRes.rows.length > 0) {
       return NextResponse.json({ error: 'You have already applied to this listing.' }, { status: 400 });
     }
 
     const body = await request.json();
     const { coverLetter, resumeUrl } = body;
 
-    const newApp = {
-      id: nextId(applications),
-      listingId, listingTitle: listing.title, company: listing.company,
-      userId: decoded.userId, userName: decoded.name, userEmail: decoded.email,
-      userRole: decoded.role,
-      coverLetter: coverLetter || '', resumeUrl: resumeUrl || '',
-      status: 'Applied', appliedAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-    applications.push(newApp);
-    writeTable('applications', applications);
+    const insertRes = await dbQuery(
+      `INSERT INTO applications ("listingId", "listingTitle", company, "userId", "userName", "userEmail", "userRole", "coverLetter", "resumeUrl", status) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+      [listingId, listing.title, listing.company, decoded.userId, decoded.name, decoded.email, decoded.role, coverLetter || '', resumeUrl || '', 'Applied']
+    );
+    const newApp = insertRes.rows[0];
 
     // Award XP + badge
     await awardXP(decoded.userId, 75, `Applied to: ${listing.title} at ${listing.company}`);
