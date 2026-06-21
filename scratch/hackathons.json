@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "title": "BuildAI Hackathon 2026",
+    "organizer": "ParableLabs",
+    "description": "Build the next generation of AI-powered tools. Open to all skill levels. Teams of 1–4.",
+    "tags": [
+      "AI",
+      "ML",
+      "Python",
+      "APIs"
+    ],
+    "status": "open",
+    "prize": "₹2,00,000",
+    "deadline": "2026-07-06T10:04:13.596Z",
+    "startDate": "2026-06-26T10:04:13.596Z",
+    "endDate": "2026-07-11T10:04:13.596Z",
+    "maxTeamSize": 4,
+    "createdBy": null,
+    "createdAt": "2026-06-21T10:04:13.596Z"
+  },
+  {
+    "id": 2,
+    "title": "Web3 DeFi Challenge",
+    "organizer": "TechNova Inc",
+    "description": "Design decentralized finance applications. Blockchain, smart contracts, and Web3 stack.",
+    "tags": [
+      "Web3",
+      "Blockchain",
+      "Solidity"
+    ],
+    "status": "open",
+    "prize": "₹1,50,000",
+    "deadline": "2026-07-01T10:04:13.596Z",
+    "startDate": "2026-06-21T10:04:13.596Z",
+    "endDate": "2026-07-05T10:04:13.596Z",
+    "maxTeamSize": 3,
+    "createdBy": null,
+    "createdAt": "2026-06-21T10:04:13.596Z"
+  },
+  {
+    "id": 3,
+    "title": "SustainTech Hack",
+    "organizer": "GreenLabs",
+    "description": "Solutions for climate, renewable energy, and sustainable supply chains.",
+    "tags": [
+      "IoT",
+      "Data",
+      "Sustainability"
+    ],
+    "status": "upcoming",
+    "prize": "₹1,00,000",
+    "deadline": "2026-07-21T10:04:13.596Z",
+    "startDate": "2026-07-11T10:04:13.596Z",
+    "endDate": "2026-07-28T10:04:13.596Z",
+    "maxTeamSize": 5,
+    "createdBy": null,
+    "createdAt": "2026-06-21T10:04:13.596Z"
+  },
+  {
+    "id": 4,
+    "title": "HealthAI Sprint",
+    "organizer": "MedTech Partners",
+    "description": "AI for healthcare diagnostics, patient monitoring, and telemedicine.",
+    "tags": [
+      "Healthcare",
+      "AI",
+      "Python"
+    ],
+    "status": "completed",
+    "prize": "₹75,000",
+    "deadline": "2026-06-16T10:04:13.596Z",
+    "startDate": "2026-06-01T10:04:13.596Z",
+    "endDate": "2026-06-16T10:04:13.596Z",
+    "maxTeamSize": 4,
+    "createdBy": null,
+    "createdAt": "2026-06-21T10:04:13.596Z"
+  }
+]

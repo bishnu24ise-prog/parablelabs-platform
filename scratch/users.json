@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "name": "Bishnu kumar Sardar",
+    "email": "bishnusardar111@gmail.com",
+    "password": "$2b$10$.sEtiDI6issFEwYqiaTvju4.LyvBo7srUOgx21lln8KGXaXIjEK1e",
+    "role": "Student",
+    "onboarded": true,
+    "profile_data": "{\"university\":\"cambridge university\",\"gradYear\":\"2024\",\"resumeName\":\"\"}",
+    "xp": 0,
+    "created_at": "2026-06-21T09:58:05.528Z"
+  }
+]

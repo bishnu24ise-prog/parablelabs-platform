@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "AI Resume Parser",
+    "category": "AI/ML",
+    "description": "Build an AI-powered resume parser that extracts structured data (skills, experience, education) from uploaded PDFs.",
+    "budget": "₹15,000 – ₹25,000",
+    "duration": "2 weeks",
+    "tags": [
+      "Python",
+      "NLP",
+      "FastAPI"
+    ],
+    "status": "open",
+    "postedBy": null,
+    "postedByName": "TechNova Inc",
+    "requirements": "Experience with NLP libraries, PDF parsing, REST APIs.",
+    "postedAt": "2026-06-21T10:04:18.110Z"
+  },
+  {
+    "id": 2,
+    "title": "E-commerce Dashboard Redesign",
+    "category": "Frontend",
+    "description": "Redesign and rebuild an admin dashboard for an e-commerce platform with React. Mobile-first, real-time data charts.",
+    "budget": "₹10,000 – ₹18,000",
+    "duration": "10 days",
+    "tags": [
+      "React",
+      "Recharts",
+      "TypeScript"
+    ],
+    "status": "open",
+    "postedBy": null,
+    "postedByName": "GreenCart",
+    "requirements": "Strong React + charting experience, eye for design.",
+    "postedAt": "2026-06-21T10:04:18.110Z"
+  },
+  {
+    "id": 3,
+    "title": "Blockchain Voting Smart Contract",
+    "category": "Web3",
+    "description": "Develop and audit a voting smart contract on Ethereum. Must include tests and deployment scripts.",
+    "budget": "₹20,000 – ₹35,000",
+    "duration": "3 weeks",
+    "tags": [
+      "Solidity",
+      "Hardhat",
+      "Ethers.js"
+    ],
+    "status": "open",
+    "postedBy": null,
+    "postedByName": "DemoDAO",
+    "requirements": "Solidity experience, familiarity with Hardhat testing.",
+    "postedAt": "2026-06-21T10:04:18.110Z"
+  },
+  {
+    "id": 4,
+    "title": "IoT Sensor Data Pipeline",
+    "category": "Backend",
+    "description": "Build a data ingestion pipeline for IoT sensor data using Kafka, Python, and TimescaleDB for time-series storage.",
+    "budget": "₹30,000 – ₹50,000",
+    "duration": "1 month",
+    "tags": [
+      "Python",
+      "Kafka",
+      "TimescaleDB"
+    ],
+    "status": "open",
+    "postedBy": null,
+    "postedByName": "SustainGrid",
+    "requirements": "Backend experience, exposure to streaming data or IoT.",
+    "postedAt": "2026-06-21T10:04:18.110Z"
+  }
+]

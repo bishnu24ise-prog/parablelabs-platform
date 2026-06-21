@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "title": "Frontend Intern — React",
+    "company": "TechNova Inc",
+    "description": "Build modern UIs for TechNova's SaaS dashboard. You'll work with React, TypeScript, and Tailwind.",
+    "location": "Bengaluru (Hybrid)",
+    "type": "Internship",
+    "duration": "6 months",
+    "stipend": "₹25,000/month",
+    "tags": [
+      "React",
+      "TypeScript",
+      "Tailwind"
+    ],
+    "status": "open",
+    "requirements": "Strong React fundamentals, portfolio of projects.",
+    "postedBy": null,
+    "postedAt": "2026-06-21T10:04:16.349Z"
+  },
+  {
+    "id": 2,
+    "title": "ML Engineer Intern",
+    "company": "ParableLabs",
+    "description": "Work on real AI evaluation models, RAG pipelines, and LLM integrations.",
+    "location": "Remote",
+    "type": "Internship",
+    "duration": "3 months",
+    "stipend": "₹35,000/month",
+    "tags": [
+      "Python",
+      "ML",
+      "LLMs",
+      "PyTorch"
+    ],
+    "status": "open",
+    "requirements": "Python proficiency, ML coursework or projects, interest in LLMs.",
+    "postedBy": null,
+    "postedAt": "2026-06-21T10:04:16.349Z"
+  },
+  {
+    "id": 3,
+    "title": "Backend Engineer Intern",
+    "company": "DataFlow Systems",
+    "description": "Design and build scalable REST APIs in Node.js with PostgreSQL.",
+    "location": "Mumbai (On-site)",
+    "type": "Internship",
+    "duration": "6 months",
+    "stipend": "₹30,000/month",
+    "tags": [
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "status": "open",
+    "requirements": "Node.js basics, understanding of databases, API design.",
+    "postedBy": null,
+    "postedAt": "2026-06-21T10:04:16.349Z"
+  },
+  {
+    "id": 4,
+    "title": "DevOps Intern",
+    "company": "CloudStack India",
+    "description": "Automate CI/CD pipelines, manage Kubernetes clusters, monitor infrastructure.",
+    "location": "Pune (Hybrid)",
+    "type": "Internship",
+    "duration": "4 months",
+    "stipend": "₹20,000/month",
+    "tags": [
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "AWS"
+    ],
+    "status": "open",
+    "requirements": "Linux basics, interest in cloud infrastructure.",
+    "postedBy": null,
+    "postedAt": "2026-06-21T10:04:16.349Z"
+  },
+  {
+    "id": 5,
+    "title": "Full Stack Intern",
+    "company": "GreenTech Solutions",
+    "description": "Work on sustainability analytics platform using Next.js and Python FastAPI.",
+    "location": "Remote",
+    "type": "Internship",
+    "duration": "3 months",
+    "stipend": "₹22,000/month",
+    "tags": [
+      "Next.js",
+      "Python",
+      "FastAPI",
+      "React"
+    ],
+    "status": "open",
+    "requirements": "React and Python experience, able to build end-to-end features.",
+    "postedBy": null,
+    "postedAt": "2026-06-21T10:04:16.349Z"
+  }
+]
